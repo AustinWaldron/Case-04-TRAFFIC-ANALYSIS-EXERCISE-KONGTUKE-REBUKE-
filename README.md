@@ -44,9 +44,3 @@ An investigation was conducted on a network packet capture (`.pcap`) following a
 * **Filter:** `samr && ip.src == 10.9.11.2` (or `samr.level == 21`)
 * **Method:** Analyzed Security Account Manager Remote (SAMR) DCE/RPC traffic over the SMB named pipe `\pipe\samr`.
 * **Finding:** Inspected the `QueryUserInfo` response (Level 21 - `UserAllInformation`). Because DCE/RPC payload encryption was not enforced across this administrative session, user profile attributes were transmitted in cleartext. Expanding the `UserInfo` structure directly resolved account `gmcdowell` to the full name **`Gabriel McDowell`**.
-
----
-
-## 4. Key Takeaways & Security Implications
-1. **Cleartext Metadata Exposure:** Administrative protocols such as unsealed SAMR/RPC over SMB expose account details and directory architecture to passive network eavesdropping.
-2. **Persistence of Host Identity:** While IP allocations through DHCP are transient, extracting immutable hardware MACs and Active Directory Kerberos host tickets enables direct attribution and rapid host containment during incident response.
